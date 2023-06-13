@@ -5,10 +5,12 @@ class Member:
     def __str__(self):
         return f'Hi, my name is {self.name}'
 
+
 class Student(Member):
     def __init__(self, name: str, reason: str):
         super().__init__(name)
         self.reason = reason
+
 
 class Instructor(Member):
     def __init__(self, name: str, bio: str, skills: list = []):
@@ -18,6 +20,7 @@ class Instructor(Member):
 
     def add_skill(self, skill: str):
         self.skills.append(skill)
+
 
 class Workshop:
     def __init__(self, date: str, subject: str, instructors: list = [],
@@ -37,16 +40,17 @@ class Workshop:
         text = f'Workshop - {self.date} - {self.subject} \n\n' \
                f'Students \n'
         students = ''
-        for i, student in enumerate(self.students):
-            students += f'{i+1}. {student.name} - {student.reason} \n'
-        text += students + '\n' + 'Instructors' + '\n'
+        for i, student in enumerate(self.students, 1):
+            students += f'{i}. {student.name} - {student.reason} \n'
+        text += f"{students} \n Instructors \n"
         instructors = ''
-        for i, instructor in enumerate(self.instructors):
-            instructors += f'{i+1}. {instructor.name} - ' +\
+        for i, instructor in enumerate(self.instructors, 1):
+            instructors += f'{i}. {instructor.name} - ' +\
                            ', '.join(instructor.skills) + '\n' +\
                             f'\t {instructor.bio} \n'
         text += instructors
         return text
+
 
 workshop = Workshop("12/03/2014", "Shutl")
 

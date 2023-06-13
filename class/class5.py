@@ -1,5 +1,6 @@
 import random
 
+
 class Card:
     def __init__(self, value: str, color: str):
         self.value = value
@@ -8,13 +9,15 @@ class Card:
     def __str__(self):
         return f'{self.value} of {self.color}'
 
+
 class Deck:
+    VALUES = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
+    COLORS = ['Clubs', 'Spades', 'Diamonds', 'Hearts']
+
     def __init__(self):
-        values = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
-        colors = ['Clubs', 'Spades', 'Diamonds', 'Hearts']
         self.pile = []
-        for value in values:
-            for color in colors:
+        for value in self.VALUES:
+            for color in self.COLORS:
                 self.pile.append(Card(value, color))
 
     def shuffle(self):
@@ -28,6 +31,7 @@ class Deck:
     def __str__(self):
         return str(self.pile)
 
+
 def main():
     some_deck = Deck()
     print(some_deck)  # jak zrobić, żeby wyświetlały się nazwy kart?
@@ -37,6 +41,6 @@ def main():
     print(some_deck)
     print(some_deck.deal())
 
+
 if __name__ == '__main__':
     main()
-

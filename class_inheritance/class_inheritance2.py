@@ -5,8 +5,9 @@ class Depot:
         self.vehicles = vehicles
 
     def __str__(self):
-        return f'This is the {self.name} depot. It is a {self.kind} depot including' \
-               f' vehicles: {self.vehicles}'
+        return (f'This is the {self.name} depot. It is a {self.kind} depot including '
+                f'vehicles: {self.vehicles}')
+
 
 class Vehicle:
     def __init__(self, number: int, depot: Depot, max_velocity: float):
@@ -20,6 +21,7 @@ class Vehicle:
                f'depot. ' \
                f'Its maximal velocity is {self.max_velocity} km/h.'
 
+
 class Tram(Vehicle):
     def __init__(self, number, depot, max_velocity, cars_number: int):
         super().__init__(number, depot, max_velocity)
@@ -27,6 +29,7 @@ class Tram(Vehicle):
 
     def __str__(self):
         return super().__str__() + f' It has {self.cars_number} cars.'
+
 
 class Bus(Vehicle):
     def __init__(self, number, depot, max_velocity, used_fuel: float):
@@ -37,6 +40,7 @@ class Bus(Vehicle):
         return super().__str__() + f' This month it has already ' \
                                    f'used {self.used_fuel} liters of fuel.'
 
+
 def main():
     some_vehicle = Vehicle(4, Depot('WOLA', 'tram', []), 80)
     print(some_vehicle)
@@ -44,6 +48,7 @@ def main():
     print(some_tram)
     some_bus = Bus(123, Depot('OSTROBRAMSKA', 'bus', []), 120, 23.4)
     print(some_bus)
+
 
 if __name__ == '__main__':
     main()
