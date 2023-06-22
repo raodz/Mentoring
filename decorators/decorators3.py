@@ -4,7 +4,10 @@ Wg zadania to count() ma tworzyć słownik, ale nie wiem, jak miałyby się wted
 zapisywać kolejne wywołania
 '''
 
+
 def count(function):
+    # calls = {}
+
     def inner(*args, **kwargs):
         try:
             calls[function.__name__] += 1

@@ -4,6 +4,7 @@ import re
 def check_if_color(txt: str):
     if re.match(r'^(([a-f]|[A-F]|\d)([a-f]|[A-F]|\d)([a-f]|[A-F]|\d))'
                 r'(?:([a-f]|[A-F]|\d)([a-f]|[A-F]|\d)([a-f]|[A-F]|\d))?$', txt):
+        # #[a-fA-F\d]{6} | #[a-fA-F\d]{3}
         return 'Correct HEX'
     else:
         return 'Incorrect HEX'

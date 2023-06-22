@@ -10,9 +10,11 @@ class StarsAdder:
 
         return wrapper
 
+
 @StarsAdder()
 def get_text(text: str):
     return text
+
 
 print(get_text('Some text'))
 print(get_text('Some longer text'))
