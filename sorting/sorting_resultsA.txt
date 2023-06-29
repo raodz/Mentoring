@@ -1,0 +1,30 @@
+1000 elements:
+
+
+bubble_sort: 0.04950237274169922
+
+insertion_sort: 0.0
+
+quick_sort: 0.0009996891021728516
+
+10000 elements:
+
+
+bubble_sort: 5.6361472606658936
+
+insertion_sort: 0.0009856224060058594
+
+quick_sort: 0.009000062942504883
+
+100000 elements:
+
+
+bubble_sort: 1575.139710187912
+
+insertion_sort: 0.05124950408935547
+
+quick_sort: 0.38898682594299316
+
+1000000 elements:
+
+
