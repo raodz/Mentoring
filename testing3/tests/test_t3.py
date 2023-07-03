@@ -19,6 +19,8 @@ def test_should_raise_index_error_for_empty_array():
 
 
 def test_should_return_sorted_array():
-    arr = [5, 2, 7, 1, -2, 4, 7, 4, 9, 0]
-    result = [-2, 0, 1, 2, 4, 4, 5, 7, 7, 9]
-    assert quick_sort(arr) == result
+    original_array = [5, 2, 7, 1, -2, 4, 7, 4, 9, 0]
+    expected_result = [-2, 0, 1, 2, 4, 4, 5, 7, 7, 9]
+    actual_result = original_array.copy()
+    quick_sort(actual_result)
+    assert expected_result == actual_result
