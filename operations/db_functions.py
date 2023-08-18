@@ -9,7 +9,8 @@ def connect_to_db(path):
 def create_table(con):
     query = (
         "CREATE TABLE IF NOT EXISTS History(id INTEGER PRIMARY KEY, txt TEXT "
-        "NOT NULL, shift INTEGER, direction TEXT, shifted_txt TEXT NOT NULL);"
+        "NOT NULL, shift INTEGER, direction TEXT, shifted_txt TEXT NOT NULL, "
+        "time_of_crypting DATETIME);"
     )
     con.execute(query)
     con.commit()
@@ -23,8 +24,8 @@ def add_to_history(
     # f'dbs//{db_name}' nie działa
     create_table(con)
     query = (
-        f"INSERT INTO History(txt, shift, direction, shifted_txt) VALUES({txt}, "
-        f"{shift}, {direction}, {shifted_txt})"
+        f"INSERT INTO History(txt, shift, direction, shifted_txt, time_of_crypting) "
+        f"VALUES({txt}, {shift}, {direction}, {shifted_txt}, CURRENT_TIMESTAMP)"
     )
     con.execute(query)
     con.commit()

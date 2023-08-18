@@ -1,42 +1,70 @@
 import string
-from itertools import cycle
+import json
+from datetime import datetime
 from operations.db_functions import add_to_history
 
-
-def get_list_of_signs():
-    letters = string.ascii_letters
-    digits = "0123456789"
-    signs = list(letters + digits)
-    return signs
+SIGNS = string.ascii_letters + string.digits
 
 
-signs = get_list_of_signs()
+class Cypher:
+    @staticmethod
+    def create_history():
+        time = str(datetime.now())
+        chars_to_replace = [":", ".", " "]
+        for char in chars_to_replace:
+            time = time.replace(char, "-")
+        history_name = "history" + time + ".db"
+        return history_name
+
+    def cesar(
+        self,
+        original_txt: str,
+        shift: int,
+        history_file: str,
+        encrypting_mode: bool = True,
+    ) -> str:
+        # if not history_file:
+        #     history_file = self.create_history()
+
+        mode = 1 if encrypting_mode else -1
+        mode_name = "encrypting" if encrypting_mode else "decrypting"
+
+        shifted_txt = ""
+        for sign in original_txt:
+            if sign in SIGNS:
+                try:
+                    shifted_sign = SIGNS[SIGNS.index(sign) + shift * mode]
+                except IndexError:
+                    shifted_sign = SIGNS[
+                        SIGNS.index(sign) + (shift - len(SIGNS)) * mode
+                    ]
+            else:
+                shifted_sign = sign
+            shifted_txt += shifted_sign
+
+        add_to_history(
+            history_file,
+            f"'{original_txt}'",
+            f"'{str(shift)}'",
+            f"'{mode_name}'",
+            f"'{shifted_txt}'",
+        )
+        return shifted_txt
+
+    @staticmethod
+    def crypt_from_json(
+        file_path: str, history_file: str = None, encrypting_mode: bool = True
+    ):
+        if not history_file:
+            history_file = "history" + str(datetime.now()) + ".db"
+        with open(file_path) as file:
+            data_to_crypt = json.load(file)
+            for data in data_to_crypt:
+                txt, shift = data.get("txt", ""), data.get("shift", 0)
+                shifted_data = Cypher().cesar(
+                    txt, shift, encrypting_mode=encrypting_mode
+                )
+                print(f"{txt} shifted by {shift}: " f"{shifted_data}")
 
 
-def cesar_cypher(txt: str, shift: int, history_file: str, encrypting=True) -> str:
-    """Use mode = 1 if you want to enscript txt and mode = -1 if you want to
-    descript txt"""
-    mode = 1
-    mode_name = "encrypting"
-    if not encrypting:
-        mode = -1
-        mode_name = "decrypting"
-    signs = get_list_of_signs()
-    shifted_txt = ""
-    for sign in txt:
-        if sign in signs:
-            try:
-                shifted_sign = signs[signs.index(sign) + shift * mode]
-            except IndexError:
-                shifted_sign = signs[signs.index(sign) + (shift - len(signs)) * mode]
-        else:
-            shifted_sign = sign
-        shifted_txt += shifted_sign
-    add_to_history(
-        history_file,
-        f"'{txt}'",
-        f"'{str(shift)}'",
-        f"'{mode_name}'",
-        f"'{shifted_txt}'",
-    )
-    return shifted_txt
+# Cypher().cesar('Anna', 4, 'history2023-08-17-18-17-17-474637.db')
